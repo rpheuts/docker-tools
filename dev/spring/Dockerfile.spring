@@ -1,4 +1,4 @@
-FROM amazonlinux
+FROM amazonlinux:latest
 
 ENV JAVA_VERSION 8u31
 ENV BUILD_VERSION b13
