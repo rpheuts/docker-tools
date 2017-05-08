@@ -10,7 +10,4 @@ ${PHP_VERSION}-pecl-memcached ${PHP_VERSION}-pecl-oauth ${PHP_VERSION}-pecl-ssh2
 ${PHP_VERSION}-pgsql ${PHP_VERSION}-process ${PHP_VERSION}-pspell ${PHP_VERSION}-recode ${PHP_VERSION}-snmp ${PHP_VERSION}-soap ${PHP_VERSION}-tidy \
 ${PHP_VERSION}-xml ${PHP_VERSION}-xmlrpc ${PHP_VERSION}-zip mysql56-server && yum clean all
 
-RUN mkdir /app
-WORKDIR /app
-
 RUN curl -sS https://getcomposer.org/installer | php
