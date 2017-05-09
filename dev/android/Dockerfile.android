@@ -1,0 +1,33 @@
+FROM amazonlinux:latest
+
+ENV JAVA_VERSION 8u31
+ENV BUILD_VERSION b13
+ENV ANDROID_SDK_VERSION 3859397
+ 
+# Upgrading system
+RUN yum -y upgrade && yum -y install wget which unzip expect && yum -y clean all 
+ 
+# Downloading & Config Java 8
+RUN wget --no-cookies --no-check-certificate --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-$BUILD_VERSION/jdk-$JAVA_VERSION-linux-x64.rpm" -O /tmp/jdk-8-linux-x64.rpm
+RUN yum -y install /tmp/jdk-8-linux-x64.rpm && \
+  alternatives --install /usr/bin/java jar /usr/java/latest/bin/java 200000 && \
+  alternatives --install /usr/bin/javaws javaws /usr/java/latest/bin/javaws 200000 && \
+  alternatives --install /usr/bin/javac javac /usr/java/latest/bin/javac 200000
+
+# Download and untar Android SDK tools
+RUN mkdir -p /opt/android-sdk-linux && wget https://dl.google.com/android/repository/tools_r25.2.3-linux.zip -O tools.zip && \
+  unzip tools.zip -d /opt/android-sdk-linux && rm tools.zip
+
+# Set Android environment
+ENV ANDROID_HOME /opt/android-sdk-linux
+ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
+
+# Accept Android licenses
+RUN mkdir $ANDROID_HOME/licenses && \
+  echo 8933bad161af4178b1185d1a37fbf41ea5269c55 > $ANDROID_HOME/licenses/android-sdk-license && \
+  echo 84831b9409646a918e30573bab4c9c91346d8abd > $ANDROID_HOME/licenses/android-sdk-preview-license
+
+# Update and install using sdkmanager
+RUN $ANDROID_HOME/tools/bin/sdkmanager "tools" "platform-tools" "build-tools;25.0.2" \
+  "platforms;android-25" "extras;android;m2repository" "extras;google;m2repository" \
+  "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"

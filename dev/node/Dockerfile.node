@@ -2,7 +2,7 @@ FROM amazonlinux:latest
 ENV NODE_VERSION v7.10.0
 
 # Install C and wget
-RUN yum install gcc44 gcc-c++ libgcc44 cmake wget -y && yum clean all
+RUN yum install gcc44 gcc-c++ libgcc44 cmake wget ruby -y && yum clean all
 
 # Install node
 RUN wget http://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}.tar.gz && \
@@ -10,5 +10,6 @@ RUN wget http://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}.tar.gz && \
   cd node-${NODE_VERSION} && ./configure && make && \
   make install
 
-RUN npm install -g create-react-app
+RUN gem install sass
+RUN npm install -g create-react-app grunt grunt-cli grunt-sass
 

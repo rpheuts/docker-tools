@@ -1,0 +1,6 @@
+FROM amazonlinux:latest
+
+RUN yum -y update && yum -y install libunwind libicu libuuid && yum clean all
+RUN curl -sSL -o dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=847103
+RUN mkdir -p /opt/dotnet && tar zxf dotnet.tar.gz -C /opt/dotnet && rm dotnet.tar.gz
+RUN ln -s /opt/dotnet/dotnet /usr/local/bin && dotnet help > /dev/null
