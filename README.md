@@ -2,7 +2,7 @@
 
 # Docker-Tools
 
-Instant develop environment anywhere with a single command using Docker. Tiny infrastructure that provides a simple way of using containerized development environments.
+Instant development environment anywhere with a single command using Docker. Tiny infrastructure that provides a simple way of using containerized development environments.
 
 ## Install (OSX / Linux):
 ~~~~
