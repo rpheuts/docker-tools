@@ -1,0 +1,19 @@
+FROM amazonlinux:latest
+
+ENV SETUP_TOOLS_VERSION="35.0.2"
+
+# Install packages
+RUN yum -y update
+RUN yum -y install python35 nc
+RUN yum groupinstall -y development
+RUN yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel wget postgresql-devel python35-devel libjpeg-devel python35-setuptools
+
+# Install pip
+#RUN cd /tmp && wget --no-check-certificate https://github.com/pypa/setuptools/archive/v${SETUP_TOOLS_VERSION}.zip
+#RUN cd /tmp && unzip v${SETUP_TOOLS_VERSION}.zip
+#RUN cd /tmp/setuptools-${SETUP_TOOLS_VERSION} && python35 setup.py install
+RUN curl https://bootstrap.pypa.io/get-pip.py | python35 -
+
+# Switch to python 3.5
+RUN mv /usr/bin/python /usr/bin/python2
+RUN ln -s /usr/bin/python3.5 /usr/bin/python
