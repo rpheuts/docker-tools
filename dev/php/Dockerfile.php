@@ -1,5 +1,5 @@
 FROM amazonlinux:latest
-ENV PHP_VERSION php70
+ENV PHP_VERSION php71
 
 RUN yum update -y && yum install -y \
 curl sudo httpd24 mod24_ssl ${PHP_VERSION} ${PHP_VERSION}-bcmath ${PHP_VERSION}-cli ${PHP_VERSION}-common ${PHP_VERSION}-dba \
