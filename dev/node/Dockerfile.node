@@ -1,5 +1,5 @@
 FROM amazonlinux:latest
-ENV NODE_VERSION v7.10.0
+ENV NODE_VERSION v8.11.2
 
 # Install C and wget
 RUN yum install gcc44 gcc-c++ libgcc44 cmake wget ruby -y && yum clean all
@@ -11,5 +11,5 @@ RUN wget http://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}.tar.gz && \
   make install
 
 RUN gem install sass
-RUN npm install -g create-react-app grunt grunt-cli grunt-sass
+RUN npm install -g create-react-app grunt grunt-cli grunt-sass yarn
 
