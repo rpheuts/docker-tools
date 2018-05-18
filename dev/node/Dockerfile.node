@@ -10,6 +10,5 @@ RUN wget http://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}.tar.gz && \
   cd node-${NODE_VERSION} && ./configure && make && \
   make install
 
-RUN gem install sass
-RUN npm install -g create-react-app grunt grunt-cli grunt-sass yarn
+RUN npm install -g create-react-app yarn
 
