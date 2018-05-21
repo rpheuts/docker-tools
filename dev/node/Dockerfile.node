@@ -1,8 +1,8 @@
 FROM amazonlinux:latest
 ENV NODE_VERSION v8.11.2
 
-# Install C and wget
-RUN yum install gcc44 gcc-c++ libgcc44 cmake wget ruby -y && yum clean all
+# Install C, wget and git
+RUN yum install gcc44 gcc-c++ libgcc44 cmake wget ruby git -y && yum clean all
 
 # Install node
 RUN wget http://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}.tar.gz && \
@@ -11,4 +11,3 @@ RUN wget http://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}.tar.gz && \
   make install
 
 RUN npm install -g create-react-app yarn
-
