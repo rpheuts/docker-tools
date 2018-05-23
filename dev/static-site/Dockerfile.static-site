@@ -3,8 +3,11 @@ FROM rpheuts/env-aws:latest
 ENV HUGO_VERSION 0.40.3
 ENV HUGO_BINARY hugo_${HUGO_VERSION}_linux-64bit
 
-# Install pygments (for syntax highlighting) and bash
-RUN pip install pygments
+# Install pygments (for syntax highlighting)
+RUN pip install pygments && \
+	yum -y install gcc gcc-c++ ruby24-devel rubygems24 make && \
+	yum clean all && \
+	gem install jekyll
 
 # Download and Install hugo
 RUN mkdir /usr/local/hugo
