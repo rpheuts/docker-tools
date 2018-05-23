@@ -43,6 +43,11 @@ module.exports = {
                 spec.phases.build.commands = ['hugo'];
             }
 
+            if (config.netlify) {
+                spec.phases.build = {};
+                spec.phases.build.commands = [config.netlify.build];
+            }
+
             // Artifacts
             spec.artifacts = {};
             if (config.jekyll) {
@@ -51,6 +56,10 @@ module.exports = {
                 spec.artifacts.files = ['public'];
             } else {
                 spec.artifacts.files = ['*.*'];
+            }
+
+            if (config.netlify) {
+                spec.artifacts.files = [config.netlify.dist];
             }
 
             // Caching between builds

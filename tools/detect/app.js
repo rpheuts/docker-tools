@@ -6,6 +6,7 @@ let yarn = require('./app/yarndetect');
 let webpack = require('./app/webpackdetect');
 let hugo = require('./app/hugodetect');
 let jekyll = require('./app/jekylldetect');
+let netlify = require('./app/netlifydetect');
 let specGen = require('./app/specgenerator');
 let specRun = require('./app/specrunner');
 let fs = require('fs');
@@ -52,6 +53,14 @@ walker.on("file", function (root, fileStats, next) {
 
     if (jekyllInfo) {
         detected.jekyll = jekyllInfo;
+    }
+
+    let netlifyInfo = netlify.detect(root, fileStats, function(root, fileStats) {
+        return fs.readFileSync(root + '/' + fileStats.name);
+    });
+
+    if (netlifyInfo) {
+        detected.netlify = netlifyInfo;
     }
 
     next();
