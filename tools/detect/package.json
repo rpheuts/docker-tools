@@ -1,0 +1,10 @@
+{
+  "name": "appdetect",
+  "version": "0.0.1",
+  "dependencies": {
+    "requirejs": "2.3.5",
+    "walk": "2.3.13",
+    "yamljs": "0.3.0"
+  },
+  "bin": "app/appdetect.js"
+}
