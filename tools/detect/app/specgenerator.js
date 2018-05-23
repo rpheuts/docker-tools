@@ -33,9 +33,25 @@ module.exports = {
                 spec.phases.build.commands = ['node ./node_modules/webpack/bin/webpack.js'];
             }
 
+            if (config.jekyll && !spec.phases.build) {
+                spec.phases.build = {};
+                spec.phases.build.commands = ['jekyll b'];
+            }
+
+            if (config.hugo && !spec.phases.build) {
+                spec.phases.build = {};
+                spec.phases.build.commands = ['hugo'];
+            }
+
             // Artifacts
             spec.artifacts = {};
-            spec.artifacts.files = ['*.*'];
+            if (config.jekyll) {
+                spec.artifacts.files = ['_site'];
+            } else if (config.hugo) {
+                spec.artifacts.files = ['public'];
+            } else {
+                spec.artifacts.files = ['*.*'];
+            }
 
             // Caching between builds
             if (config.npm) {

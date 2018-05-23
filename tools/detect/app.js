@@ -4,6 +4,8 @@ let walk = require('walk');
 let npm = require('./app/npmdetect');
 let yarn = require('./app/yarndetect');
 let webpack = require('./app/webpackdetect');
+let hugo = require('./app/hugodetect');
+let jekyll = require('./app/jekylldetect');
 let specGen = require('./app/specgenerator');
 let specRun = require('./app/specrunner');
 let fs = require('fs');
@@ -34,6 +36,22 @@ walker.on("file", function (root, fileStats, next) {
 
     if (webpackInfo) {
         detected.webpack = webpackInfo;
+    }
+
+    let hugoInfo = hugo.detect(root, fileStats, function(root, fileStats) {
+        return fs.readFileSync(root + '/' + fileStats.name);
+    });
+
+    if (hugoInfo) {
+        detected.hugo = hugoInfo;
+    }
+
+    let jekyllInfo = jekyll.detect(root, fileStats, function(root, fileStats) {
+        return fs.readFileSync(root + '/' + fileStats.name);
+    });
+
+    if (jekyllInfo) {
+        detected.jekyll = jekyllInfo;
     }
 
     next();
