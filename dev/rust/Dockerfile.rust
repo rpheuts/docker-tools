@@ -1,0 +1,4 @@
+FROM ubuntu:latest
+
+RUN apt -y update && apt -y install curl && apt autoclean
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
