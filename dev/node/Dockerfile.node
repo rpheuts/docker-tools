@@ -1,14 +1,10 @@
-FROM amazonlinux:latest
-ENV NODE_VERSION v8.11.2
+FROM ubuntu:latest
+ENV NODE_VERSION 19
 
-RUN yum install gcc44 gcc-c++ libgcc44 cmake wget git -y && yum clean all
+RUN apt update && apt -y install curl && apt autoclean
+RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -
 
-# Install node
-RUN wget http://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}.tar.gz && \
-	tar -zxvf node-${NODE_VERSION}.tar.gz && \
-	pushd node-${NODE_VERSION} && ./configure && make && \
-	make install && \
-	popd && rm -rf node-${NODE_VERSION}
-  
-
-RUN npm install -g create-react-app yarn
+RUN apt install -y nodejs gcc g++ make
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+RUN echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt update && apt -y install yarn
