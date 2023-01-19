@@ -2,20 +2,19 @@ FROM amazonlinux:latest
 
 ## Install packages
 RUN yum -y update
-RUN rpm -ivh https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-ami201503-96-9.6-2.noarch.rpm
-RUN yum -y install python35 wget postgresql96 docker openssh-clients
+RUN yum -y install python3 wget postgresql96 docker openssh-clients tar
 
 # Install pip
-RUN cd /tmp && wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.2.tar.gz
-RUN cd /tmp && tar -xvf setuptools-1.4.2.tar.gz
-RUN cd /tmp/setuptools-1.4.2 && python3 setup.py install
+RUN cd /tmp && wget --no-check-certificate https://files.pythonhosted.org/packages/67/ba/27235b9eebee2492fbf03ac1828a997d3d686031445d491f9cfa36a7085e/setuptools-66.0.0.tar.gz
+RUN cd /tmp && tar -xvf setuptools-66.0.0.tar.gz
+RUN cd /tmp/setuptools-66.0.0 && python3 setup.py install
 RUN curl https://bootstrap.pypa.io/get-pip.py | python3 -
 
 # Switch to python 3
 RUN mv /usr/bin/python /usr/bin/python2
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-RUN mkdir /root/.aws
+#RUN mkdir /root/.aws
 RUN pip install awscli
 
 
