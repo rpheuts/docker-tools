@@ -1,9 +1,9 @@
-FROM amazonlinux:latest
+FROM ubuntu:latest
 
-ENV GO_VERSION 1.10.2
+ENV GO_VERSION 1.19.5
 
-RUN yum -y update && yum -y install wget && yum clean all
-RUN wget https://storage.googleapis.com/golang/go${GO_VERSION}.linux-amd64.tar.gz && \
-  tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
+RUN apt -y update && apt -y install wget && apt autoclean
+RUN wget https://storage.googleapis.com/golang/go${GO_VERSION}.linux-`uname -m  | sed s/aarch64/arm64/g`.tar.gz && \
+  tar -C /usr/local -xzf go${GO_VERSION}.linux-`uname -m  | sed s/aarch64/arm64/g`.tar.gz
 
 ENV PATH ${PATH}:/usr/local/go/bin
