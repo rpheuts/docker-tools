@@ -1,5 +1,3 @@
-![Docker Hub](https://img.shields.io/docker/build/rpheuts/env-aws.svg) ![Docker Hub](https://img.shields.io/docker/build/rpheuts/env-node.svg)
-
 # Docker-Tools
 
 Instant development environment anywhere with a single command using Docker. Tiny infrastructure that provides a simple way of using containerized development environments.
