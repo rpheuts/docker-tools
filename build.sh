@@ -1,14 +1,15 @@
 DOCKER_REPOS="rpheuts"
+HUB_NAME="docker.io"
 
-docker login
+podman login --username ${DOCKER_REPOS} ${HUB_NAME}
 
 pushd dev
 ls -d * | while read tool;
 do
 	DEV_TOOL=${tool}
 	pushd $tool
-	docker build -t ${DOCKER_REPOS}/env-${DEV_TOOL} -f Dockerfile.${DEV_TOOL} .
-	docker push ${DOCKER_REPOS}/env-${DEV_TOOL}
+	podman build -t ${HUB_NAME}/${DOCKER_REPOS}/env-${DEV_TOOL}-`uname -m` -f Dockerfile.${DEV_TOOL} .
+	podman push ${HUB_NAME}/${DOCKER_REPOS}/env-${DEV_TOOL}-`uname -m`
 	popd
 done;
 popd

@@ -1,2 +1,2 @@
-#docker rmi $(docker images -f "dangling=true" -q)
-docker image prune
+#podman rmi $(podman images -f "dangling=true" -q)
+podman image prune
