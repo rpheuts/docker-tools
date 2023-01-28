@@ -1,1 +1,5 @@
-podman run -it --rm -v $(PWD):/workspace -w="/workspace" ${@:2} rpheuts/env-$1-`uname -m` /bin/bash
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	podman run -it --rm -v $(PWD):/workspace -w="/workspace" ${@:2} docker.io/rpheuts/env-$1-`uname -m` /bin/bash
+else
+	podman run -it --rm -v $(pwd):/workspace -w="/workspace" ${@:2} docker.io/rpheuts/env-$1-`uname -m` /bin/bash
+fi
